@@ -10,7 +10,7 @@ namespace ProjetoEscola_API.Models
 
         public string? senha {get; set;}
 
-        public string? rules {get; set;}
+        public string? role {get; set;}
         
     }
 }
