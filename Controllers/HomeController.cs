@@ -26,27 +26,27 @@ namespace ProjetoEscola_API.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public ActionResult<dynamic> Login([FromBody] User usuario)
+        public ActionResult<dynamic> Login([FromBody] Perfil usuario)
         {
             //verifica se existe aluno a ser excluído
-            var user = _context.Usuario.Where(u => u.username == usuario.username &&
+            var perfil = _context.Perfil.Where(u => u.nome == usuario.nome &&
 
             u.senha == usuario.senha)
 
             .FirstOrDefault();
-            if (user == null)
+            if (perfil == null)
                 return Unauthorized("Usuário ou senha inválidos");
             var authClaims = new List<Claim> {
-new Claim(ClaimTypes.Name, user.username),
-new Claim(ClaimTypes.Role, user.role),
+new Claim(ClaimTypes.Name, perfil.nome),
+new Claim(ClaimTypes.Role, perfil.role),
 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 };
             var token = GetToken(authClaims);
-            user.senha = "";
+            perfil.senha = "";
             return Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
-                user = user
+                user = perfil
             });
         }
 
