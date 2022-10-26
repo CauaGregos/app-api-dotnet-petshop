@@ -35,6 +35,8 @@ namespace ProjetoEscola_API.Controllers
             u.senha == usuario.senha)
 
             .FirstOrDefault();
+
+           
             if (perfil == null)
                 return Unauthorized("Usuário ou senha inválidos");
             var authClaims = new List<Claim> {
@@ -50,7 +52,7 @@ namespace ProjetoEscola_API.Controllers
                 user = perfil
             });
         }
-
+        // preciso enviar meu token para saber qual perm eu tenho
         [HttpGet]
         [Route("anonymous")]
         [AllowAnonymous]
@@ -61,14 +63,17 @@ namespace ProjetoEscola_API.Controllers
         [Authorize]
         public string Authenticated() => String.Format("Autenticado - {0}",
         User.Identity.Name);
+
         [HttpGet]
-        [Route("aluno")]
-        [Authorize(Roles = "aluno,professor")]
-        public string Aluno() => "Aluno";
+        [Route("Admin")]
+        [Authorize(Roles = "Admin")]
+        public string admin() => "Admin";
+
         [HttpGet]
-        [Route("professor")]
-        [Authorize(Roles = "professor")]
-        public string Professor() => "Professor";
+        [Route("Cliente")]
+        [Authorize(Roles = "Cliente")]
+        public string cliente() => "Cliente";
+
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new
