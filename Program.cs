@@ -25,6 +25,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+// ***************************** ISSO AQUI TA CAUSANDO ERRO ******************************
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -76,8 +77,6 @@ app.UseCors(MyAllowSpecificOrigins);
 
 // Authentication & Authorization
 app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.UseAuthorization();
 

@@ -23,13 +23,14 @@ namespace ProjetoEscola_API.Controllers
             _configuration = configuration;
             _context = context;
         }
+        
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
         public ActionResult<dynamic> Login([FromBody] Perfil usuario)
         {
             //verifica se existe aluno a ser excluído
-            var perfil = _context.Perfil.Where(u => u.nome == usuario.nome &&
+            var perfil = _context.Perfil.Where(u => u.email == usuario.email &&
 
             u.senha == usuario.senha)
 
@@ -37,9 +38,9 @@ namespace ProjetoEscola_API.Controllers
             if (perfil == null)
                 return Unauthorized("Usuário ou senha inválidos");
             var authClaims = new List<Claim> {
-new Claim(ClaimTypes.Name, perfil.nome),
-new Claim(ClaimTypes.Role, perfil.role),
-new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.Name, perfil.nome),
+            new Claim(ClaimTypes.Role, perfil.role),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 };
             var token = GetToken(authClaims);
             perfil.senha = "";
