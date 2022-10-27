@@ -12,8 +12,8 @@ namespace ProjetoEscola_API.Controllers
     [ApiController]
     public class AgendamentoController : Controller
     {
-        private readonly EscolaContext _context;
-        public AgendamentoController(EscolaContext context)
+        private readonly PetShopContext _context;
+        public AgendamentoController(PetShopContext context)
         {
             // construtor
             _context = context;
@@ -45,12 +45,12 @@ namespace ProjetoEscola_API.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{AgendamentoId}")]
-        public ActionResult<List<Agendamento>> Get(int AgendamentoId)
+        [HttpGet("{AgendamentoEmail}")]
+        public ActionResult<List<Agendamento>> Get(String AgendamentoEmail)
         {
             try
             {
-                var result = _context.Agendamento.Find(AgendamentoId);
+                var result = _context.Agendamento.Where(x => x.email == AgendamentoEmail);
                 if (result == null)
                 {
                     return NotFound();
@@ -99,6 +99,7 @@ namespace ProjetoEscola_API.Controllers
                 result.horario = dados.horario;
                 result.pet = dados.pet;
                 result.especie = dados.especie;
+                result.aprovado = dados.aprovado;
                 await _context.SaveChangesAsync();
                 return Created($"/api/agendamento/{dados.id}", dados);
             }

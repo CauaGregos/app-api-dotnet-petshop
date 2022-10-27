@@ -13,6 +13,8 @@ namespace ProjetoEscola_API.Models
         public string? pet {get; set;}
 
          public string? especie {get; set;}
+
+        public Boolean? aprovado {get; set;}
         
     }
 }

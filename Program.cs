@@ -56,7 +56,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add DbContext
-builder.Services.AddDbContext<EscolaContext>(options =>
+builder.Services.AddDbContext<PetShopContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StringConexaoSQLServer"));
 });

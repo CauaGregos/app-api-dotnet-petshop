@@ -12,8 +12,8 @@ namespace ProjetoEscola_API.Controllers
     [ApiController]
     public class PerfilController : Controller
     {
-        private readonly EscolaContext _context;
-        public PerfilController(EscolaContext context)
+        private readonly PetShopContext _context;
+        public PerfilController(PetShopContext context)
         {
             // construtor
             _context = context;

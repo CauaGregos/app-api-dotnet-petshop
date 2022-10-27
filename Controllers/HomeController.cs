@@ -14,11 +14,11 @@ namespace ProjetoEscola_API.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly EscolaContext? _context;
+        private readonly PetShopContext? _context;
         public HomeController(
 
         IConfiguration configuration,
-        EscolaContext context)
+        PetShopContext context)
         {
             _configuration = configuration;
             _context = context;
