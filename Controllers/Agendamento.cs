@@ -46,11 +46,11 @@ namespace ProjetoEscola_API.Controllers
         }
 
         [HttpGet("{AgendamentoId}")]
-        public ActionResult<List<Agendamento>> Get(String AgendamentoEmail)
+        public ActionResult<List<Agendamento>> Get(int AgendamentoId)
         {
             try
             {
-                var result = _context.Agendamento.Find(AgendamentoEmail);
+                var result = _context.Agendamento.Find(AgendamentoId);
                 if (result == null)
                 {
                     return NotFound();
