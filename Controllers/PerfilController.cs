@@ -54,8 +54,8 @@ namespace ProjetoEscola_API.Controllers
                 _context.Perfil.Add(model);
                 if (await _context.SaveChangesAsync() == 1)
                 {
-                    //return Ok();
-                    return Created($"/api/perfil/{model.email}", model);
+                    return Ok();
+                    // return Created($"/api/perfil/{model.email}", model);
                 }
             }
             catch
