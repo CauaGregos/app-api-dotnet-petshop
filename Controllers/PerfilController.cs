@@ -25,6 +25,27 @@ namespace ProjetoEscola_API.Controllers
             return _context.Perfil.ToList();
         }
 
+        [HttpGet]
+       [Route("AdminList")]
+        public ActionResult<List<Perfil>> GetAdminList()
+        {
+
+            try
+            {
+                var result = _context.Perfil.Where(x => x.role == "Admin");
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+
+        }
+
         [HttpPost]
         public async Task<ActionResult> post(Perfil model)
         {
@@ -97,8 +118,9 @@ namespace ProjetoEscola_API.Controllers
                 result.nome = dadosPerfilAlt.nome;
                 result.email = dadosPerfilAlt.email;
                 result.senha = dadosPerfilAlt.senha;
+                result.role = dadosPerfilAlt.role;
                 await _context.SaveChangesAsync();
-                return Created($"/api/perfil/{dadosPerfilAlt.email}", dadosPerfilAlt);
+                return Created($"/api/perfil/{dadosPerfilAlt.id}", dadosPerfilAlt);
             }
             catch
             {
@@ -106,6 +128,26 @@ namespace ProjetoEscola_API.Controllers
             }
 
 
+        }
+
+
+        [HttpGet]
+        [Route("getPerfilByEmail")]
+        public ActionResult<List<Perfil>> get(String PerfilEmail)
+        {
+             try
+            {
+                var result = _context.Perfil.Where(x => x.email == PerfilEmail);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
         }
     }
 }
