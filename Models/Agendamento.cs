@@ -1,5 +1,6 @@
 namespace ProjetoEscola_API.Models
 {
+    // my DBO
     public class Agendamento
     {
         public int id {get; set;}

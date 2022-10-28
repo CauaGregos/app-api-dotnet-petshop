@@ -1,5 +1,6 @@
 namespace ProjetoEscola_API.Models
 {
+    // DBO
     public class Perfil
     {
         public int id {get; set;}

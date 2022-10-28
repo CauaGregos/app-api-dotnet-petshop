@@ -27,9 +27,11 @@ namespace ProjetoEscola_API.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
+        // mando meu emai e senha esperando a resposta que vira 
+        // um token e o user em contexto
         public ActionResult<dynamic> Login([FromBody] Perfil usuario)
         {
-            //verifica se existe aluno a ser excluído
+            
             var perfil = _context.Perfil.Where(u => u.email == usuario.email &&
 
             u.senha == usuario.senha)
@@ -52,7 +54,7 @@ namespace ProjetoEscola_API.Controllers
                 user = perfil
             });
         }
-        // preciso enviar meu token para saber qual perm eu tenho
+
         [HttpGet]
         [Route("anonymous")]
         [AllowAnonymous]
@@ -64,15 +66,18 @@ namespace ProjetoEscola_API.Controllers
         public string Authenticated() => String.Format("Autenticado - {0}",
         User.Identity.Name);
 
+
+        // Saber se o usuario é admin
         [HttpGet]
         [Route("Admin")]
         [Authorize(Roles = "Admin")]
-        public string admin() => "Admin";
+        public bool admin() => true;
 
+        // Saber se o usuario é um cliente
         [HttpGet]
         [Route("Cliente")]
         [Authorize(Roles = "Cliente")]
-        public string cliente() => "Cliente";
+        public bool cliente() => true;
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
@@ -81,6 +86,7 @@ namespace ProjetoEscola_API.Controllers
             SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(
+            // tempo que o token fica disponivel
             expires: DateTime.Now.AddHours(3),
             issuer: _configuration["JWT:ValidIssuer"],
             audience: _configuration["JWT:ValidAudience"],
