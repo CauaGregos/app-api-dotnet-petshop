@@ -12,8 +12,9 @@ namespace ProjetoEscola_API.Models
         public string? horario {get; set;}
 
         public string? pet {get; set;}
+        public string? servico {get; set;}
 
-         public string? especie {get; set;}
+        public string? especie {get; set;}
 
         public Boolean? aprovado {get; set;}
         

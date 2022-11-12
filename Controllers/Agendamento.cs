@@ -86,6 +86,7 @@ namespace ProjetoEscola_API.Controllers
         [HttpPut("{AgendamentoId}")]
         public async Task<IActionResult> put(int AgendamentoId, Agendamento dados)
         {
+           
             try
             {
                 //verifica se existe aluno a ser alterado
@@ -100,6 +101,7 @@ namespace ProjetoEscola_API.Controllers
                 result.pet = dados.pet;
                 result.especie = dados.especie;
                 result.aprovado = dados.aprovado;
+                result.servico = dados.servico;
                 await _context.SaveChangesAsync();
                 return Created($"/api/agendamento/{dados.id}", dados);
             }
